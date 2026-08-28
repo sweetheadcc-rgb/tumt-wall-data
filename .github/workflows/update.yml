@@ -1,0 +1,42 @@
+name: Update channel wall data
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-wall-data
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch channel data
+        env:
+          CSV_URL: ${{ vars.CSV_URL }}
+        run: node fetch.mjs
+
+      - name: Commit if changed (force-push single commit)
+        run: |
+          git config user.name "tumt-wall-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if git diff --quiet -- channels.json resolve-cache.json; then
+            echo "no data changes"
+            exit 0
+          fi
+          git add channels.json resolve-cache.json
+          git commit --amend -m "chore: update channel wall data ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+          git push --force
