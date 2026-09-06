@@ -1,7 +1,7 @@
 // 離線自檢：不打任何網路，全部餵假資料驗證解析邏輯。
 // 執行：node test.mjs
 import assert from 'node:assert/strict';
-import { parseCsv, dedupeByGroup, parseChannelRef, parseRss, parseStreamsPage, resolveChannelId } from './fetch.mjs';
+import { parseCsv, dedupeByGroup, parseChannelRef, parseRss, parseStreamsPage, resolveChannelId, collectChannels, mapLimit } from './fetch.mjs';
 
 let failed = false;
 
@@ -145,6 +145,102 @@ await test('resolveChannelId：抓不到 canonical/og:url 才後備用內文第�
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+await test('CSV 標頭缺「組名」或「頻道連結」→ 明確報錯(不默默回空陣列)', () => {
+  assert.throws(() => parseCsv('時間戳記,隊名,YouTube\n1,a,b\n'), /缺少必要欄位:組名、頻道連結/);
+  assert.throws(() => parseCsv('組名,連結\nx,y\n'), /實際標頭:組名 \| 連結/);
+});
+
+await test('CSV 帶 BOM、無時間戳記欄也能解析', () => {
+  const rows = parseCsv('﻿組名,頻道連結\n夜市隊,https://www.youtube.com/channel/UCabcdefghij1234567890\n');
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0].group, '夜市隊');
+  assert.equal(rows[0].timestamp, '');
+});
+
+await test('mapLimit:保持輸入順序、並行上限生效', async () => {
+  let inFlight = 0, peak = 0;
+  const out = await mapLimit([30, 10, 20, 5], 2, async (ms) => {
+    inFlight++; peak = Math.max(peak, inFlight);
+    await new Promise((r) => setTimeout(r, ms));
+    inFlight--;
+    return ms;
+  });
+  assert.deepEqual(out, [30, 10, 20, 5]);
+  assert.equal(peak, 2);
+});
+
+// collectChannels 離線測試:把 resolve/rss/live 三個網路相依全部注入假函式。
+const ID = (n) => `UC${String(n).padStart(22, '0')}`;
+const rowsFixture = [
+  { group: 'A隊', url: `https://www.youtube.com/channel/${ID(1)}` },
+  { group: 'B隊', url: 'https://www.youtube.com/@bteam' },
+  { group: 'C隊', url: 'not a url' },
+  { group: 'D隊', url: `https://www.youtube.com/channel/${ID(4)}` },
+];
+const fakeRss = async (id) => ({ channelName: `頻道${id.slice(-1)}`, entries: [{ videoId: 'v' + id.slice(-1) }] });
+const silent = () => {};
+
+await test('collectChannels:正常路徑 → ok、stale:false、fetchedAt、stats', async () => {
+  const cache = {};
+  const { channels, skipped, stats } = await collectChannels(rowsFixture.slice(0, 1), {
+    cache, now: () => 'T1', resolve: async (ref) => ref.value, rss: fakeRss, live: async () => null, logger: silent,
+  });
+  assert.equal(channels.length, 1);
+  assert.equal(channels[0].group, 'A隊');
+  assert.equal(channels[0].channelName, '頻道1');
+  assert.equal(channels[0].fetchedAt, 'T1');
+  assert.equal(channels[0].stale, false);
+  assert.equal(channels[0].live, null);
+  assert.deepEqual(skipped, []);
+  assert.deepEqual(stats, { total: 1, ok: 1, stale: 0, skipped: 0 });
+});
+
+await test('collectChannels:抓失敗但有上一輪 → 沿用舊資料並標 stale:true + error;保留舊 fetchedAt', async () => {
+  const prev = { channels: [{ group: 'A隊', channelId: ID(1), channelName: '舊名', latest: [], live: null, fetchedAt: 'T0', stale: false }] };
+  const { channels, stats } = await collectChannels(rowsFixture.slice(0, 1), {
+    prev, now: () => 'T1', resolve: async (ref) => ref.value, rss: async () => { throw new Error('RSS HTTP 503'); }, live: async () => null, logger: silent,
+  });
+  assert.equal(channels.length, 1);
+  assert.equal(channels[0].channelName, '舊名');
+  assert.equal(channels[0].stale, true);
+  assert.equal(channels[0].error, 'RSS HTTP 503');
+  assert.equal(channels[0].fetchedAt, 'T0');
+  assert.deepEqual(stats, { total: 1, ok: 0, stale: 1, skipped: 0 });
+});
+
+await test('collectChannels:抓失敗且無上一輪 → 不進 channels、列在 skipped', async () => {
+  const { channels, skipped, stats } = await collectChannels([rowsFixture[2]], {
+    resolve: async (ref) => ref.value, rss: fakeRss, live: async () => null, logger: silent,
+  });
+  assert.equal(channels.length, 0);
+  assert.equal(skipped.length, 1);
+  assert.equal(skipped[0].group, 'C隊');
+  assert.match(skipped[0].error, /無法解析頻道連結/);
+  assert.deepEqual(stats, { total: 1, ok: 0, stale: 0, skipped: 1 });
+});
+
+await test('collectChannels:live 偵測失敗不算頻道失敗(仍 ok、live=null)', async () => {
+  const { channels, stats } = await collectChannels(rowsFixture.slice(0, 1), {
+    resolve: async (ref) => ref.value, rss: fakeRss, live: async () => { throw new Error('streams HTTP 429'); }, logger: silent,
+  });
+  assert.equal(channels[0].stale, false);
+  assert.equal(channels[0].live, null);
+  assert.equal(stats.ok, 1);
+});
+
+await test('collectChannels:並行下輸出順序 = CSV 順序;stale 後再次成功會清掉 error', async () => {
+  const prev = { channels: [{ group: 'B隊', channelId: ID(2), channelName: '舊B', latest: [], live: null, fetchedAt: 'T0', stale: true, error: '上次壞掉' }] };
+  const resolve = async (ref) => (ref.type === 'handle' ? ID(2) : ref.value);
+  const rss = async (id) => { await new Promise((r) => setTimeout(r, id.endsWith('1') ? 30 : 1)); return fakeRss(id); };
+  const { channels, skipped } = await collectChannels(rowsFixture, { prev, concurrency: 3, now: () => 'T1', resolve, rss, live: async () => null, logger: silent });
+  assert.deepEqual(channels.map((c) => c.group), ['A隊', 'B隊', 'D隊']);
+  assert.deepEqual(skipped.map((s) => s.group), ['C隊']);
+  const b = channels[1];
+  assert.equal(b.stale, false);
+  assert.equal(b.fetchedAt, 'T1');
+  assert.equal('error' in b, false);
 });
 
 console.log('---');

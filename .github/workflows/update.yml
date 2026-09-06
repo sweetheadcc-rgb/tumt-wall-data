@@ -15,6 +15,8 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    # 單一頻道逾時 15s × 3 請求 × 並行 4,30 組也在 3 分鐘內;超過就是卡住,砍掉讓下一輪接手。
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,7 +24,11 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: .nvmrc
+
+      - name: Warn if CSV_URL is not configured
+        if: ${{ vars.CSV_URL == '' }}
+        run: echo "::warning::Actions variable CSV_URL 未設定,本輪只會抓 channels.csv fixture(測試頻道),不是學生清單。設定方式見 README。"
 
       - name: Fetch channel data
         env:
