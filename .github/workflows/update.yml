@@ -35,7 +35,10 @@ jobs:
           CSV_URL: ${{ vars.CSV_URL }}
         run: node fetch.mjs
 
-      - name: Commit if changed (force-push single commit)
+      # 資料 commit 只留一個:HEAD 已是 bot commit → amend(歷史不成長);
+      # HEAD 是人的 commit(程式碼改動剛合進 main)→ 保留它,另開一個 bot commit。
+      # 這樣程式碼改動的分支永遠和 main 有共同祖先,PR 才開得起來(root commit 一直被 amend 會變「無共同歷史」)。
+      - name: Commit if changed (keep a single bot commit on top)
         run: |
           git config user.name "tumt-wall-bot"
           git config user.email "actions@users.noreply.github.com"
@@ -44,5 +47,10 @@ jobs:
             exit 0
           fi
           git add channels.json resolve-cache.json
-          git commit --amend -m "chore: update channel wall data ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
-          git push --force
+          MSG="chore: update channel wall data ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+          if git log -1 --format=%s | grep -q '^chore: update channel wall data'; then
+            git commit --amend -m "$MSG"
+          else
+            git commit -m "$MSG"
+          fi
+          git push --force-with-lease=main origin main
