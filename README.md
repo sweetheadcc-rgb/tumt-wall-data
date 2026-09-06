@@ -68,12 +68,17 @@ CSV_URL=https://… npm run fetch   # 用真實清單跑
 | 開播了但 `live` 是 null | 5 分鐘內再看 | 剛開播、或直播設為「不公開」;RSS/`/streams` 只看公開直播 |
 | 開播燈永遠不亮 | `fetch.mjs` 的 live 偵測註解 | YouTube 改版把 LIVE 徽章 JSON 換了;用 `node fetch.mjs` 在本機重現後修 `parseStreamsPage` |
 
-## 為什麼 force-push 成單一 commit
+## 為什麼資料 commit 會被 amend + force-push
 
 這是資料 repo,只有最新一輪 `channels.json` 有意義,歷史沒有保留價值;每 5 分鐘一次 commit 若正常疊加,
-`.git` 會無限膨脹。`.github/workflows/update.yml` 因此用 `git commit --amend` + `git push --force`
-永遠只保留一個 commit,**這是刻意設計,不是誤用**。程式碼改動請開分支 / PR(`ci.yml` 會跑測試),
-合進 main 後下一輪更新會把它一起帶進那個單一 commit。
+`.git` 會無限膨脹。`.github/workflows/update.yml` 因此把資料更新**疊在同一個 bot commit 上**
+(`git commit --amend` + `git push --force-with-lease`),**這是刻意設計,不是誤用**。
+
+規則:HEAD 是 bot commit → amend;HEAD 是人的 commit(程式碼剛合進 main)→ 保留它、在上面另開一個 bot commit。
+所以歷史長這樣:`[程式碼 commit…] → [一個一直被 amend 的 bot commit]`,程式碼改動走一般分支 / PR 即可(`ci.yml` 會跑測試)。
+
+> ⚠️ 2026-09-06 之前的版本連 root commit 都在 amend,任何分支都會和 main「沒有共同歷史」而開不了 PR。
+> 第一次合入這個修正時,請在本機 `git merge --allow-unrelated-histories` 或直接把分支 force-push 到 main;之後就正常了。
 
 ## 關聯 repo
 
