@@ -1,0 +1,30 @@
+name: CI
+
+# 只驗程式碼;每 5 分鐘的資料更新由 update.yml 負責,且用 GITHUB_TOKEN 推的 commit 不會觸發本 workflow。
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'fetch.mjs'
+      - 'test.mjs'
+      - 'package.json'
+      - '.github/workflows/**'
+  pull_request:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Syntax
+        run: npm run check
+      - name: Offline self-test
+        run: npm test

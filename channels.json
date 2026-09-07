@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 2,
+  "updatedAt": "2026-09-08T04:59:27.336Z",
+  "stats": {
+    "total": 3,
+    "ok": 1,
+    "stale": 2,
+    "skipped": 0
+  },
+  "skipped": [],
+  "channels": [
+    {
+      "group": "測試｜三立新聞LIVE",
+      "channelId": "UC2TuODJhC03pLgd6MpWP0iw",
+      "channelName": "三立新聞LIVE",
+      "channelUrl": "https://www.youtube.com/channel/UC2TuODJhC03pLgd6MpWP0iw",
+      "live": {
+        "videoId": "0pSsOaSxWhE",
+        "title": "🔴【LIVE】全台灣地震即時監測 ｜台湾地震速報｜ Taiwan Earthquake News",
+        "url": "https://www.youtube.com/watch?v=0pSsOaSxWhE",
+        "startedAt": null
+      },
+      "latest": [
+        {
+          "videoId": "qQzzkz1_gj4",
+          "title": "蔣大寶多名國中同學網路發聲？竟有人帳號大頭用\"橘子\"許芷瑜 附中國中部印尼分校？護航蔣大寶\"同學部隊\"被抓包印尼假帳號｜李正皓 主持｜【新台派上線 完整版】20260907｜三立新聞台",
+          "publishedAt": "2026-09-08T00:00:06+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/qQzzkz1_gj4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=qQzzkz1_gj4"
+        },
+        {
+          "videoId": "1xZ1QC6NsZw",
+          "title": "Joeman消失2週現身了！煮牛肉麵認錯:我絕對有問題 親曝將回歸「開箱iPhone18不缺席」｜三立新聞LIVE",
+          "publishedAt": "2026-09-08T00:18:15+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/1xZ1QC6NsZw/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=1xZ1QC6NsZw"
+        },
+        {
+          "videoId": "N17FRk4C6Rg",
+          "title": "【今天立院說什麼】 國會第一現場 立法院麥克風開放中  ｜蔣萬安負評狂飆69%！沈伯洋揭「致命關鍵」：問A答B惹怒市民",
+          "publishedAt": "2026-09-08T00:02:27+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/N17FRk4C6Rg/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=N17FRk4C6Rg"
+        },
+        {
+          "videoId": "-akisM1Ocxs",
+          "title": "\"強佔車道\"暴走團亂象殺入香港！中國要管了 「中國版馬斯克」追覓科技創辦人爆欠款危機 埃及女主持人販毒判死 聽\"絞刑\"哭喊不缺錢【全球解析】｜三立新聞LIVE",
+          "publishedAt": "2026-09-08T00:00:34+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/-akisM1Ocxs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=-akisM1Ocxs"
+        },
+        {
+          "videoId": "xsrf-BJ5p1A",
+          "title": "世錦賽資格飛了…17歲小將嗆協會:沒人問過我? \"東洋法拉利\"狂炸！屋主急哭\"5隻貓狗在屋內\" 男子還願文昌筆放錯 連3晚夢見神明來提醒【強打最鮮聞】｜三立新聞LIVE",
+          "publishedAt": "2026-09-07T23:50:06+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/xsrf-BJ5p1A/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=xsrf-BJ5p1A"
+        },
+        {
+          "videoId": "G7i7SYYoJ0k",
+          "title": "避同台沈伯洋? 蔣萬安臨時取消行程 劉耀仁酸:龜縮了 沈伯洋拜票行程滿檔! 三創.北投趕場傾聽商家意見｜三立新聞LIVE",
+          "publishedAt": "2026-09-07T16:23:11+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/G7i7SYYoJ0k/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=G7i7SYYoJ0k"
+        }
+      ],
+      "fetchedAt": "2026-09-08T00:28:14.847Z",
+      "stale": true,
+      "error": "RSS HTTP 404"
+    },
+    {
+      "group": "測試｜南投夜市",
+      "channelId": "UCsLCKwieHQLK0OtEp_Z_w1A",
+      "channelName": "DvrLive即時影像",
+      "channelUrl": "https://www.youtube.com/channel/UCsLCKwieHQLK0OtEp_Z_w1A",
+      "live": {
+        "videoId": "2jmU6S_WhfA",
+        "title": "🔴24H直播 即時影像 田中市場工地",
+        "url": "https://www.youtube.com/watch?v=2jmU6S_WhfA",
+        "startedAt": null
+      },
+      "latest": [
+        {
+          "videoId": "2jmU6S_WhfA",
+          "title": "🔴24H直播 即時影像 田中市場工地",
+          "publishedAt": "2026-07-04T08:13:53+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/2jmU6S_WhfA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=2jmU6S_WhfA"
+        },
+        {
+          "videoId": "FqbOGyxbAag",
+          "title": "🔴(直播)慕尼黑巧克力工坊",
+          "publishedAt": "2026-06-19T05:56:51+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/FqbOGyxbAag/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=FqbOGyxbAag"
+        },
+        {
+          "videoId": "w3kGiJvKQ1g",
+          "title": "🔴24H直播 即時影像 南投市星期三家樂福夜市 TAIWAN Nantou Wednesday  Night Market ナイトマーケット",
+          "publishedAt": "2026-05-20T16:17:11+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/w3kGiJvKQ1g/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=w3kGiJvKQ1g"
+        },
+        {
+          "videoId": "WyCwtLohyUk",
+          "title": "🔴24H直播 即時影像 南投縣草屯鎮 草鞋墩人文觀光夜市2 Taiwan Caoxiedun Cultural Tourism Night Market ナイトマーケット オンライン放送",
+          "publishedAt": "2025-09-28T19:29:03+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/WyCwtLohyUk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=WyCwtLohyUk"
+        },
+        {
+          "videoId": "a5GTYNrQJAY",
+          "title": "🔴24H直播 即時影像 南投縣草屯鎮 草鞋墩人文觀光夜市 Taiwan  Caoxiedun Cultural Tourism Night Market ナイトマーケット オンライン放送",
+          "publishedAt": "2025-08-02T17:54:57+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/a5GTYNrQJAY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=a5GTYNrQJAY"
+        },
+        {
+          "videoId": "3D5ff3J0cG8",
+          "title": "「dvrlive」直播",
+          "publishedAt": "2025-07-13T18:46:02+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/3D5ff3J0cG8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=3D5ff3J0cG8"
+        }
+      ],
+      "fetchedAt": "2026-09-08T04:59:27.335Z",
+      "stale": false
+    },
+    {
+      "group": "測試｜地震監視",
+      "channelId": "UCa32OtZqhDqDqCHeWO477qg",
+      "channelName": "台灣地震監視",
+      "channelUrl": "https://www.youtube.com/channel/UCa32OtZqhDqDqCHeWO477qg",
+      "live": {
+        "videoId": "KyT4qSK8lJo",
+        "title": "台灣地震監視(地震速報、強震即時警報)",
+        "url": "https://www.youtube.com/watch?v=KyT4qSK8lJo",
+        "startedAt": null
+      },
+      "latest": [
+        {
+          "videoId": "NO_8qtOEIBo",
+          "title": "2026年08月25日 臺灣東南部海域地震(地震速報、強震即時警報)",
+          "publishedAt": "2026-08-25T07:42:48+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/NO_8qtOEIBo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=NO_8qtOEIBo"
+        },
+        {
+          "videoId": "MEVmPo16DPM",
+          "title": "2026年05月12日 臺灣東部海域地震(地震速報、強震即時警報)",
+          "publishedAt": "2026-05-12T07:10:38+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/MEVmPo16DPM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=MEVmPo16DPM"
+        },
+        {
+          "videoId": "iP8qfwnAqgY",
+          "title": "2026年05月01日 臺灣東部海域地震(地震速報、強震即時警報)",
+          "publishedAt": "2026-05-01T12:59:13+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/iP8qfwnAqgY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=iP8qfwnAqgY"
+        },
+        {
+          "videoId": "5DMFJv_mgiA",
+          "title": "2026年04月05日 花蓮縣近海地震(地震速報、強震即時警報)",
+          "publishedAt": "2026-04-04T17:38:18+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/5DMFJv_mgiA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=5DMFJv_mgiA"
+        },
+        {
+          "videoId": "e6oOpsCHHBk",
+          "title": "2026年03月12日 花蓮縣近海地震(地震速報、強震即時警報)",
+          "publishedAt": "2026-03-12T12:29:36+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/e6oOpsCHHBk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=e6oOpsCHHBk"
+        },
+        {
+          "videoId": "8uMKHRhe8hQ",
+          "title": "2026年02月24日 宜蘭縣近海地震(地震速報、強震即時警報)",
+          "publishedAt": "2026-02-24T04:50:46+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/8uMKHRhe8hQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=8uMKHRhe8hQ"
+        }
+      ],
+      "fetchedAt": "2026-09-08T00:28:14.855Z",
+      "stale": true,
+      "error": "RSS HTTP 404"
+    }
+  ]
+}
