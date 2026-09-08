@@ -18,11 +18,11 @@ jobs:
     # 單一頻道逾時 15s × 3 請求 × 並行 4,30 組也在 3 分鐘內;超過就是卡住,砍掉讓下一輪接手。
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 1
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
 
