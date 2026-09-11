@@ -1,0 +1,58 @@
+name: Update channel wall data
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-wall-data
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    # 單一頻道逾時 15s × 3 請求 × 並行 4,30 組也在 3 分鐘內;超過就是卡住,砍掉讓下一輪接手。
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+
+      - name: Warn if CSV_URL is not configured
+        if: ${{ vars.CSV_URL == '' }}
+        run: echo "::warning::Actions variable CSV_URL 未設定,本輪只會抓 channels.csv fixture(測試頻道),不是學生清單。設定方式見 README。"
+
+      - name: Fetch channel data
+        env:
+          CSV_URL: ${{ vars.CSV_URL }}
+          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+        run: node fetch.mjs
+
+      # 資料 commit 只留一個:HEAD 已是 bot commit → amend(歷史不成長);
+      # HEAD 是人的 commit(程式碼改動剛合進 main)→ 保留它,另開一個 bot commit。
+      # 這樣程式碼改動的分支永遠和 main 有共同祖先,PR 才開得起來(root commit 一直被 amend 會變「無共同歷史」)。
+      - name: Commit if changed (keep a single bot commit on top)
+        run: |
+          git config user.name "tumt-wall-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if git diff --quiet -- channels.json resolve-cache.json; then
+            echo "no data changes"
+            exit 0
+          fi
+          git add channels.json resolve-cache.json
+          MSG="chore: update channel wall data ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+          if git log -1 --format=%s | grep -q '^chore: update channel wall data'; then
+            git commit --amend -m "$MSG"
+          else
+            git commit -m "$MSG"
+          fi
+          git push --force-with-lease=main origin main

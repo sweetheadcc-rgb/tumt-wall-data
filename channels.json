@@ -1,0 +1,309 @@
+{
+  "schemaVersion": 2,
+  "updatedAt": "2026-09-12T17:49:05.137Z",
+  "stats": {
+    "total": 13,
+    "ok": 13,
+    "stale": 0,
+    "skipped": 0
+  },
+  "skipped": [],
+  "channels": [
+    {
+      "group": "測試｜三立新聞LIVE",
+      "platform": "youtube",
+      "channelId": "UC2TuODJhC03pLgd6MpWP0iw",
+      "channelName": "三立新聞LIVE",
+      "channelUrl": "https://www.youtube.com/channel/UC2TuODJhC03pLgd6MpWP0iw",
+      "live": {
+        "videoId": "0pSsOaSxWhE",
+        "title": "🔴【LIVE】全台灣地震即時監測 ｜台湾地震速報｜ Taiwan Earthquake News",
+        "url": "https://www.youtube.com/watch?v=0pSsOaSxWhE",
+        "startedAt": null
+      },
+      "latest": [
+        {
+          "videoId": "EMWRenG2ZEY",
+          "title": "王偉忠專訪\"輕搥\"沈伯洋浮現破圈效應？王瑞德揭被沈信服了！能吸\"知識藍與經濟藍\" 關鍵？│呂惠敏 主持│【驚爆新聞線 完整版】20260912│三立新聞台",
+          "publishedAt": "2026-09-12T16:00:06+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/EMWRenG2ZEY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=EMWRenG2ZEY"
+        },
+        {
+          "videoId": "It0HirTq-WA",
+          "title": "泳池機房操作失誤爆意外！鹽酸倒錯管路竄毒氯氣 管理員遭燻雙眼刺痛｜三立新聞LIVE",
+          "publishedAt": "2026-09-12T17:00:08+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/It0HirTq-WA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=It0HirTq-WA"
+        },
+        {
+          "videoId": "GGdkK6pQFIs",
+          "title": "侯友宜挺李四川首場造勢 蘇巧慧允諾照顧原民｜三立新聞LIVE",
+          "publishedAt": "2026-09-12T16:22:15+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/GGdkK6pQFIs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=GGdkK6pQFIs"
+        },
+        {
+          "videoId": "Vvka5SmFhG8",
+          "title": "轎車攔腰撞機車 台中21歲女騎士遭撞飛命危｜三立新聞LIVE",
+          "publishedAt": "2026-09-12T16:21:28+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/Vvka5SmFhG8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=Vvka5SmFhG8"
+        },
+        {
+          "videoId": "ZsTSKoh_e1Q",
+          "title": "知名火雞肉飯店\"阿宏師\"火警 客人端著碗筷逃生｜三立新聞LIVE",
+          "publishedAt": "2026-09-12T16:14:14+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/ZsTSKoh_e1Q/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=ZsTSKoh_e1Q"
+        },
+        {
+          "videoId": "P2JCp-VclPs",
+          "title": "東港鎮海公園兄弟檔落海 8歲弟獲救.13歲哥不治｜三立新聞LIVE",
+          "publishedAt": "2026-09-12T16:13:27+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/P2JCp-VclPs/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=P2JCp-VclPs"
+        }
+      ],
+      "fetchedAt": "2026-09-12T17:49:04.965Z",
+      "stale": false
+    },
+    {
+      "group": "測試｜南投夜市",
+      "platform": "youtube",
+      "channelId": "UCsLCKwieHQLK0OtEp_Z_w1A",
+      "channelName": "DvrLive即時影像",
+      "channelUrl": "https://www.youtube.com/channel/UCsLCKwieHQLK0OtEp_Z_w1A",
+      "live": {
+        "videoId": "2jmU6S_WhfA",
+        "title": "🔴24H直播 即時影像 田中市場工地",
+        "url": "https://www.youtube.com/watch?v=2jmU6S_WhfA",
+        "startedAt": null
+      },
+      "latest": [
+        {
+          "videoId": "2jmU6S_WhfA",
+          "title": "🔴24H直播 即時影像 田中市場工地",
+          "publishedAt": "2026-07-04T08:13:53+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/2jmU6S_WhfA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=2jmU6S_WhfA"
+        },
+        {
+          "videoId": "FqbOGyxbAag",
+          "title": "🔴(直播)慕尼黑巧克力工坊",
+          "publishedAt": "2026-06-19T05:56:51+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/FqbOGyxbAag/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=FqbOGyxbAag"
+        },
+        {
+          "videoId": "w3kGiJvKQ1g",
+          "title": "🔴24H直播 即時影像 南投市星期三家樂福夜市 TAIWAN Nantou Wednesday  Night Market ナイトマーケット",
+          "publishedAt": "2026-05-20T16:17:11+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/w3kGiJvKQ1g/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=w3kGiJvKQ1g"
+        },
+        {
+          "videoId": "WyCwtLohyUk",
+          "title": "🔴24H直播 即時影像 南投縣草屯鎮 草鞋墩人文觀光夜市2 Taiwan Caoxiedun Cultural Tourism Night Market ナイトマーケット オンライン放送",
+          "publishedAt": "2025-09-28T19:29:03+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/WyCwtLohyUk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=WyCwtLohyUk"
+        },
+        {
+          "videoId": "a5GTYNrQJAY",
+          "title": "🔴24H直播 即時影像 南投縣草屯鎮 草鞋墩人文觀光夜市 Taiwan  Caoxiedun Cultural Tourism Night Market ナイトマーケット オンライン放送",
+          "publishedAt": "2025-08-02T17:54:57+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/a5GTYNrQJAY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=a5GTYNrQJAY"
+        },
+        {
+          "videoId": "3D5ff3J0cG8",
+          "title": "「dvrlive」直播",
+          "publishedAt": "2025-07-13T18:46:02+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/3D5ff3J0cG8/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=3D5ff3J0cG8"
+        }
+      ],
+      "fetchedAt": "2026-09-12T17:49:04.766Z",
+      "stale": false
+    },
+    {
+      "group": "測試｜地震監視",
+      "platform": "youtube",
+      "channelId": "UCa32OtZqhDqDqCHeWO477qg",
+      "channelName": "台灣地震監視",
+      "channelUrl": "https://www.youtube.com/channel/UCa32OtZqhDqDqCHeWO477qg",
+      "live": {
+        "videoId": "KyT4qSK8lJo",
+        "title": "台灣地震監視(地震速報、強震即時警報)",
+        "url": "https://www.youtube.com/watch?v=KyT4qSK8lJo",
+        "startedAt": null
+      },
+      "latest": [
+        {
+          "videoId": "NO_8qtOEIBo",
+          "title": "2026年08月25日 臺灣東南部海域地震(地震速報、強震即時警報)",
+          "publishedAt": "2026-08-25T07:42:48+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/NO_8qtOEIBo/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=NO_8qtOEIBo"
+        },
+        {
+          "videoId": "MEVmPo16DPM",
+          "title": "2026年05月12日 臺灣東部海域地震(地震速報、強震即時警報)",
+          "publishedAt": "2026-05-12T07:10:38+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/MEVmPo16DPM/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=MEVmPo16DPM"
+        },
+        {
+          "videoId": "iP8qfwnAqgY",
+          "title": "2026年05月01日 臺灣東部海域地震(地震速報、強震即時警報)",
+          "publishedAt": "2026-05-01T12:59:13+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/iP8qfwnAqgY/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=iP8qfwnAqgY"
+        },
+        {
+          "videoId": "5DMFJv_mgiA",
+          "title": "2026年04月05日 花蓮縣近海地震(地震速報、強震即時警報)",
+          "publishedAt": "2026-04-04T17:38:18+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/5DMFJv_mgiA/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=5DMFJv_mgiA"
+        },
+        {
+          "videoId": "e6oOpsCHHBk",
+          "title": "2026年03月12日 花蓮縣近海地震(地震速報、強震即時警報)",
+          "publishedAt": "2026-03-12T12:29:36+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/e6oOpsCHHBk/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=e6oOpsCHHBk"
+        },
+        {
+          "videoId": "8uMKHRhe8hQ",
+          "title": "2026年02月24日 宜蘭縣近海地震(地震速報、強震即時警報)",
+          "publishedAt": "2026-02-24T04:50:46+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/8uMKHRhe8hQ/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=8uMKHRhe8hQ"
+        }
+      ],
+      "fetchedAt": "2026-09-12T17:49:04.889Z",
+      "stale": false
+    },
+    {
+      "group": "龍頭鳳尾",
+      "platform": "twitch",
+      "channelId": "675288526",
+      "channelName": "通靈師聖龍",
+      "channelUrl": "https://www.twitch.tv/necromancer_holy_dargon",
+      "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/ba78695e-108c-419f-84e6-8a3dbda1cf47-profile_image-300x300.jpeg",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-09-12T17:49:04.590Z",
+      "stale": false
+    },
+    {
+      "group": "喂組",
+      "platform": "twitch",
+      "channelId": "1539001056",
+      "channelName": "wshixuan",
+      "channelUrl": "https://www.twitch.tv/wshixuan",
+      "avatar": "https://static-cdn.jtvnw.net/user-default-pictures-uv/dbdc9198-def8-11e9-8681-784f43822e80-profile_image-300x300.png",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-09-12T17:49:04.675Z",
+      "stale": false
+    },
+    {
+      "group": "X-Strike",
+      "platform": "twitch",
+      "channelId": "647904272",
+      "channelName": "xstrike0910",
+      "channelUrl": "https://www.twitch.tv/xstrike0910",
+      "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/e66a4b8c-d66d-473e-868f-8c059b1a715f-profile_image-300x300.png",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-09-12T17:49:04.752Z",
+      "stale": false
+    },
+    {
+      "group": "普通鹹魚",
+      "platform": "twitch",
+      "channelId": "1539002224",
+      "channelName": "gauje9527",
+      "channelUrl": "https://www.twitch.tv/gauje9527",
+      "avatar": "https://static-cdn.jtvnw.net/user-default-pictures-uv/cdd517fe-def4-11e9-948e-784f43822e80-profile_image-300x300.png",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-09-12T17:49:04.841Z",
+      "stale": false
+    },
+    {
+      "group": "123woodman456",
+      "platform": "twitch",
+      "channelId": "1538999032",
+      "channelName": "123woodman456",
+      "channelUrl": "https://www.twitch.tv/123woodman456",
+      "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/4c6ee748-d5da-40b6-9778-61dd04ca6cba-profile_image-300x300.jpeg",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-09-12T17:49:04.845Z",
+      "stale": false
+    },
+    {
+      "group": "Ovo",
+      "platform": "twitch",
+      "channelId": "1539002643",
+      "channelName": "naname941230",
+      "channelUrl": "https://www.twitch.tv/naname941230",
+      "avatar": "https://static-cdn.jtvnw.net/user-default-pictures-uv/de130ab0-def7-11e9-b668-784f43822e80-profile_image-300x300.png",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-09-12T17:49:05.005Z",
+      "stale": false
+    },
+    {
+      "group": "夜蛇",
+      "platform": "twitch",
+      "channelId": "1539002500",
+      "channelName": "night9serpent",
+      "channelUrl": "https://www.twitch.tv/night9serpent",
+      "avatar": "https://static-cdn.jtvnw.net/user-default-pictures-uv/de130ab0-def7-11e9-b668-784f43822e80-profile_image-300x300.png",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-09-12T17:49:04.931Z",
+      "stale": false
+    },
+    {
+      "group": "「茈」發動前的41秒內，新宿再次響起了五條悟的吟唱。「九綱」「偏光」「烏與聲明」「表裡之間」，此刻「蒼」、「赫」在宿儺眼前完成了交疊，宿儺明白自己再也沒有任何機會阻止「茈」的誕生了。無限制的虛式如同核爆一般在新宿亮起沖天的光芒，象徵著人類文明的摩天大樓成片成片消失。廢墟之中，拚盡全力護住自己的宿儺，無力地靠在殘破的建築上支撐身體。也就是說——沒錯，是五條悟贏了。",
+      "platform": "twitch",
+      "channelId": "432555085",
+      "channelName": "超大郭",
+      "channelUrl": "https://www.twitch.tv/big_kuo",
+      "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/7992077f-a8e1-420a-b410-0e00ed026a38-profile_image-300x300.png",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-09-12T17:49:04.970Z",
+      "stale": false
+    },
+    {
+      "group": "睡眠小羊",
+      "platform": "twitch",
+      "channelId": "1539001861",
+      "channelName": "sleepgreedunu",
+      "channelUrl": "https://www.twitch.tv/sleepgreedunu",
+      "avatar": "https://static-cdn.jtvnw.net/user-default-pictures-uv/ce57700a-def9-11e9-842d-784f43822e80-profile_image-300x300.png",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-09-12T17:49:05.043Z",
+      "stale": false
+    },
+    {
+      "group": "不知道組名要叫什麼",
+      "platform": "youtube",
+      "channelId": "UC1jdFZvrHZeomN-LNiQuHjg",
+      "channelName": "王星火",
+      "channelUrl": "https://www.youtube.com/channel/UC1jdFZvrHZeomN-LNiQuHjg",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-09-12T17:49:05.136Z",
+      "stale": false
+    }
+  ]
+}
