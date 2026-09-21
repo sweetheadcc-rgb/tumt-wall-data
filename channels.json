@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 2,
+  "updatedAt": "2026-10-11T00:55:30.147Z",
+  "stats": {
+    "total": 10,
+    "ok": 9,
+    "stale": 1,
+    "skipped": 0
+  },
+  "skipped": [],
+  "channels": [
+    {
+      "group": "龍頭鳳尾",
+      "platform": "twitch",
+      "channelId": "675288526",
+      "channelName": "通靈師聖龍",
+      "channelUrl": "https://www.twitch.tv/necromancer_holy_dargon",
+      "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/ba78695e-108c-419f-84e6-8a3dbda1cf47-profile_image-300x300.jpeg",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-10-11T00:55:29.855Z",
+      "stale": false
+    },
+    {
+      "group": "喂組",
+      "platform": "twitch",
+      "channelId": "1539001056",
+      "channelName": "wshixuan",
+      "channelUrl": "https://www.twitch.tv/wshixuan",
+      "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/a5007d9b-4caa-4634-a77e-7bcb94dcf9cd-profile_image-300x300.jpeg",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-10-11T00:55:29.858Z",
+      "stale": false
+    },
+    {
+      "group": "X-Strike",
+      "platform": "twitch",
+      "channelId": "647904272",
+      "channelName": "xstrike0910",
+      "channelUrl": "https://www.twitch.tv/xstrike0910",
+      "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/e66a4b8c-d66d-473e-868f-8c059b1a715f-profile_image-300x300.png",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-10-11T00:55:29.886Z",
+      "stale": false
+    },
+    {
+      "group": "普通鹹魚",
+      "platform": "twitch",
+      "channelId": "1539002224",
+      "channelName": "gauje9527",
+      "channelUrl": "https://www.twitch.tv/gauje9527",
+      "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/58def0e7-d03b-4378-9391-cbe64704f293-profile_image-300x300.png",
+      "live": null,
+      "latest": [
+        {
+          "videoId": "2894961822",
+          "title": "Live streaming of gauje9527",
+          "url": "https://www.twitch.tv/videos/2894961822",
+          "published": "2026-10-08T06:26:34Z",
+          "thumbnail": "https://static-cdn.jtvnw.net/cf_vods/d3vd9lfkzbru3h/28067e8045cae248ac63_gauje9527_315575933551_1791440787//thumb/thumb0-640x360.jpg",
+          "kind": "archive"
+        }
+      ],
+      "fetchedAt": "2026-10-11T00:55:29.889Z",
+      "stale": false
+    },
+    {
+      "group": "123woodman456",
+      "platform": "twitch",
+      "channelId": "1538999032",
+      "channelName": "123woodman456",
+      "channelUrl": "https://www.twitch.tv/123woodman456",
+      "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/4c6ee748-d5da-40b6-9778-61dd04ca6cba-profile_image-300x300.jpeg",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-10-11T00:55:29.920Z",
+      "stale": false
+    },
+    {
+      "group": "Ovo",
+      "platform": "twitch",
+      "channelId": "1539002643",
+      "channelName": "無名主播",
+      "channelUrl": "https://www.twitch.tv/naname941230",
+      "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/554a348b-de25-4ec7-909d-43eefa2b008e-profile_image-300x300.jpeg",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-10-11T00:55:29.923Z",
+      "stale": false
+    },
+    {
+      "group": "夜蛇",
+      "platform": "twitch",
+      "channelId": "1539002500",
+      "channelName": "沉默之影夜蛇",
+      "channelUrl": "https://www.twitch.tv/night9serpent",
+      "avatar": "https://static-cdn.jtvnw.net/user-default-pictures-uv/de130ab0-def7-11e9-b668-784f43822e80-profile_image-300x300.png",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-10-11T00:55:29.947Z",
+      "stale": false
+    },
+    {
+      "group": "「茈」發動前的41秒內，新宿再次響起了五條悟的吟唱。「九綱」「偏光」「烏與聲明」「表裡之間」，此刻「蒼」、「赫」在宿儺眼前完成了交疊，宿儺明白自己再也沒有任何機會阻止「茈」的誕生了。無限制的虛式如同核爆一般在新宿亮起沖天的光芒，象徵著人類文明的摩天大樓成片成片消失。廢墟之中，拚盡全力護住自己的宿儺，無力地靠在殘破的建築上支撐身體。也就是說——沒錯，是五條悟贏了。",
+      "platform": "twitch",
+      "channelId": "432555085",
+      "channelName": "超大郭",
+      "channelUrl": "https://www.twitch.tv/big_kuo",
+      "avatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/7992077f-a8e1-420a-b410-0e00ed026a38-profile_image-300x300.png",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-10-11T00:55:29.955Z",
+      "stale": false
+    },
+    {
+      "group": "睡眠小羊",
+      "platform": "twitch",
+      "channelId": "1539001861",
+      "channelName": "sleepgreedunu",
+      "channelUrl": "https://www.twitch.tv/sleepgreedunu",
+      "avatar": "https://static-cdn.jtvnw.net/user-default-pictures-uv/ce57700a-def9-11e9-842d-784f43822e80-profile_image-300x300.png",
+      "live": null,
+      "latest": [],
+      "fetchedAt": "2026-10-11T00:55:29.982Z",
+      "stale": false
+    },
+    {
+      "group": "不知道組名要叫什麼",
+      "platform": "youtube",
+      "channelId": "UC1jdFZvrHZeomN-LNiQuHjg",
+      "channelName": "王星火",
+      "channelUrl": "https://www.youtube.com/channel/UC1jdFZvrHZeomN-LNiQuHjg",
+      "live": null,
+      "latest": [
+        {
+          "videoId": "380EfVPbZw4",
+          "title": "畫點不知道能用在哪的東西",
+          "publishedAt": "2026-10-02T07:25:08+00:00",
+          "thumbnail": "https://i.ytimg.com/vi/380EfVPbZw4/hqdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=380EfVPbZw4"
+        }
+      ],
+      "fetchedAt": "2026-10-10T22:07:05.189Z",
+      "stale": true,
+      "error": "RSS HTTP 404"
+    }
+  ]
+}
