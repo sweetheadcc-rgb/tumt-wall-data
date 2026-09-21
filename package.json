@@ -1,0 +1,15 @@
+{
+  "name": "tumt-wall-data",
+  "version": "2.0.0",
+  "private": true,
+  "description": "電競直播實作課「頻道牆」資料抓取管線:CSV 頻道清單 → channels.json(零相依)",
+  "type": "module",
+  "scripts": {
+    "test": "node test.mjs",
+    "fetch": "node fetch.mjs",
+    "check": "node --check fetch.mjs && node --check test.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
