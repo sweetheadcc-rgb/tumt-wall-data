@@ -18,6 +18,7 @@
 學生填的頻道連結四種格式都收:`youtube.com/channel/UC…`、`youtube.com/@handle`、`/c/名稱`、`/user/名稱`。
 Twitch 頻道連結也收:`twitch.tv/<帳號>`、`m.twitch.tv/<帳號>/home?...`、帶查詢字串的網址皆可(見下方「Twitch 設定」)。
 同一組多次提交以**最後一筆**為準。
+CSV 引號欄位可包含逗號或換行；引號格式錯誤、或正式發布的 CSV 沒有有效組別時，抓取會報錯並保留現有頻道牆資料。
 
 ## Twitch 設定(開學做一次,選用)
 

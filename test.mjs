@@ -1,7 +1,7 @@
 // 離線自檢：不打任何網路，全部餵假資料驗證解析邏輯。
 // 執行：node test.mjs
 import assert from 'node:assert/strict';
-import { parseCsv, dedupeByGroup, dropTestRows, parseChannelRef, parseRss, parseStreamsPage, resolveChannelId, collectChannels, mapLimit } from './fetch.mjs';
+import { parseCsv, dedupeByGroup, rowsForSource, dropTestRows, parseChannelRef, parseRss, parseStreamsPage, resolveChannelId, collectChannels, mapLimit } from './fetch.mjs';
 
 let failed = false;
 
@@ -24,9 +24,41 @@ await test('CSV 基本解析', () => {
   assert.equal(rows[0].url, 'https://www.youtube.com/channel/UCabcdefghij1234567890');
 });
 
+await test('CSV 引號內的換行與逗號屬於同一筆提交，後續組別不遺失', () => {
+  const csv = [
+    '時間戳記,組名,頻道連結',
+    '2026/10/17 9:00:00,"夜市,巡航\n隊",https://www.youtube.com/@night',
+    '2026/10/17 9:05:00,晨光隊,https://www.youtube.com/@morning',
+  ].join('\r\n');
+  const rows = parseCsv(csv);
+  assert.deepEqual(rows.map(({ group, url }) => ({ group, url })), [
+    { group: '夜市,巡航\n隊', url: 'https://www.youtube.com/@night' },
+    { group: '晨光隊', url: 'https://www.youtube.com/@morning' },
+  ]);
+  assert.equal(
+    parseCsv('組名,頻道連結\n"夜市""巡航隊",https://www.youtube.com/@night')[0].group,
+    '夜市"巡航隊',
+  );
+});
+
+await test('CSV 未閉合引號明確失敗，避免將壞清單寫成空頻道牆', () => {
+  assert.throws(
+    () => parseCsv('時間戳記,組名,頻道連結\n2026/10/17,"夜市隊,https://www.youtube.com/@night'),
+    /CSV.*引號/,
+  );
+  assert.throws(() => parseCsv('組名,頻道連結\n夜市"隊,https://www.youtube.com/@night'), /CSV.*引號/);
+});
+
 await test('CSV 空字串 / 只有標頭不炸，回傳空陣列', () => {
   assert.deepEqual(parseCsv(''), []);
   assert.deepEqual(parseCsv('時間戳記,組名,頻道連結\n'), []);
+});
+
+await test('正式 CSV 空白或只有標頭時拒絕覆寫，只有測試列時仍可正常過濾', () => {
+  assert.throws(() => rowsForSource('', true), /正式 CSV 沒有有效組別/);
+  assert.throws(() => rowsForSource('組名,頻道連結\n', true), /正式 CSV 沒有有效組別/);
+  assert.deepEqual(rowsForSource('', false), []);
+  assert.deepEqual(rowsForSource('組名,頻道連結\n測試｜示範,https://www.youtube.com/@demo', true), []);
 });
 
 await test('CSV 同組多次提交，取最新一筆（陣列後段覆寫前段）', () => {

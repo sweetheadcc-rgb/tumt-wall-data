@@ -74,48 +74,51 @@ function unescapeEntities(s) {
 // ---------------------------------------------------------------------------
 // CSV:時間戳記,組名,頻道連結(Google Form 發布 CSV 格式)
 // ---------------------------------------------------------------------------
-function splitCsvLine(line) {
-  const out = [];
-  let cur = '';
+function splitCsvRecords(text) {
+  const records = [];
+  let row = [];
+  let field = '';
   let inQuotes = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
+  let afterQuote = false;
+  const input = String(text ?? '').replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
+
+  const finishField = () => { row.push(field); field = ''; afterQuote = false; };
+  const finishRow = () => {
+    finishField();
+    if (row.some((value) => value.length > 0)) records.push(row);
+    row = [];
+  };
+
+  for (let i = 0; i < input.length; i++) {
+    const ch = input[i];
     if (inQuotes) {
-      if (ch === '"') {
-        if (line[i + 1] === '"') {
-          cur += '"';
-          i++;
-        } else {
-          inQuotes = false;
-        }
-      } else {
-        cur += ch;
-      }
-    } else if (ch === '"') {
-      inQuotes = true;
+      if (ch === '"' && input[i + 1] === '"') { field += '"'; i++; }
+      else if (ch === '"') { inQuotes = false; afterQuote = true; }
+      else field += ch;
     } else if (ch === ',') {
-      out.push(cur);
-      cur = '';
+      finishField();
+    } else if (ch === '\n') {
+      finishRow();
+    } else if (ch === '"' && !afterQuote && field === '') {
+      inQuotes = true;
+    } else if (ch === '"' || (afterQuote && ch !== ' ' && ch !== '\t')) {
+      throw new Error('CSV 引號格式錯誤，保留現有頻道牆資料');
     } else {
-      cur += ch;
+      field += ch;
     }
   }
-  out.push(cur);
-  return out;
+  if (inQuotes) throw new Error('CSV 引號未閉合，保留現有頻道牆資料');
+  if (row.length || field || afterQuote) finishRow();
+  return records;
 }
 
 // 標頭必須含「組名」與「頻道連結」(= Google 表單的題目名稱)。缺了就明確報錯,
 // 而不是默默回空陣列讓頻道牆變空白——那種故障在課堂上最難查。
 export function parseCsv(text) {
-  const lines = String(text ?? '')
-    .replace(/^\uFEFF/, '') // Google 匯出偶爾帶 BOM
-    .replace(/\r\n/g, '\n')
-    .replace(/\r/g, '\n')
-    .split('\n')
-    .filter((l) => l.length > 0);
-  if (lines.length === 0) return [];
+  const records = splitCsvRecords(text);
+  if (records.length === 0) return [];
 
-  const header = splitCsvLine(lines[0]).map((h) => h.trim());
+  const header = records[0].map((h) => h.trim());
   const missing = REQUIRED_HEADERS.filter((h) => !header.includes(h));
   if (missing.length) {
     throw new Error(
@@ -128,8 +131,8 @@ export function parseCsv(text) {
   const idxUrl = header.indexOf('頻道連結');
 
   const rows = [];
-  for (let i = 1; i < lines.length; i++) {
-    const cols = splitCsvLine(lines[i]);
+  for (let i = 1; i < records.length; i++) {
+    const cols = records[i];
     const group = (cols[idxGroup] ?? '').trim();
     const url = (cols[idxUrl] ?? '').trim();
     const timestamp = idxTime >= 0 ? (cols[idxTime] ?? '').trim() : '';
@@ -147,6 +150,15 @@ export function dedupeByGroup(rows) {
     map.set(row.group, row);
   }
   return [...map.values()];
+}
+
+export function rowsForSource(csvText, published) {
+  const parsed = dedupeByGroup(parseCsv(csvText));
+  // 正式表單突然沒有有效組別，常是發布網址或匯出故障；保留既有頻道牆。
+  if (published && parsed.length === 0) {
+    throw new Error('正式 CSV 沒有有效組別，保留現有頻道牆資料');
+  }
+  return published ? dropTestRows(parsed) : parsed;
 }
 
 // 正式清單(CSV_URL)裡組名以「測試｜」開頭的列是管線自測用,不上牆;本地 fixture 不過濾。
@@ -606,8 +618,7 @@ async function loadJson(path, fallback) {
 
 export async function main() {
   const csvText = await loadCsvText();
-  const parsed = dedupeByGroup(parseCsv(csvText));
-  const rows = process.env.CSV_URL ? dropTestRows(parsed) : parsed;
+  const rows = rowsForSource(csvText, Boolean(process.env.CSV_URL));
   log(`頻道清單:${rows.length} 組(逾時 ${FETCH_TIMEOUT_MS}ms、並行 ${CONCURRENCY})`);
 
   const cache = await loadJson(CACHE_PATH, {});
