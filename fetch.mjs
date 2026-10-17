@@ -648,10 +648,10 @@ export async function main() {
 
   await writeFile(CACHE_PATH, JSON.stringify(cache, null, 2) + '\n', 'utf-8');
 
-  // 清單有東西卻一個都沒抓到(通常是 YouTube 整批擋、或網路壞)→ 不覆寫、以非零結束,
+  // 清單有東西卻沒有可安全上牆的資料(例如整批斷線或全部改填新來源失敗)→ 不覆寫、以非零結束,
   // 讓 Action 亮紅而不是把頻道牆寫成空白。
   if (rows.length > 0 && channels.length === 0) {
-    log(`fatal:${rows.length} 組全部失敗且無舊資料,保留原 channels.json 不覆寫`);
+    log(`fatal:${rows.length} 組本輪沒有可安全上牆資料,保留原 channels.json 不覆寫`);
     for (const s of skipped) log(`  - ${s.group}: ${s.error}`);
     process.exitCode = 1;
     return;
