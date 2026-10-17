@@ -54,11 +54,14 @@ await test('CSV 空字串 / 只有標頭不炸，回傳空陣列', () => {
   assert.deepEqual(parseCsv('時間戳記,組名,頻道連結\n'), []);
 });
 
-await test('正式 CSV 空白或只有標頭時拒絕覆寫，只有測試列時仍可正常過濾', () => {
-  assert.throws(() => rowsForSource('', true), /正式 CSV 沒有有效組別/);
-  assert.throws(() => rowsForSource('組名,頻道連結\n', true), /正式 CSV 沒有有效組別/);
+await test('正式 CSV 沒有可上牆組別時拒絕覆寫，包含只有測試列', () => {
+  assert.throws(() => rowsForSource('', true), /正式 CSV 沒有可上牆組別/);
+  assert.throws(() => rowsForSource('組名,頻道連結\n', true), /正式 CSV 沒有可上牆組別/);
   assert.deepEqual(rowsForSource('', false), []);
-  assert.deepEqual(rowsForSource('組名,頻道連結\n測試｜示範,https://www.youtube.com/@demo', true), []);
+  assert.throws(
+    () => rowsForSource('組名,頻道連結\n測試｜示範,https://www.youtube.com/@demo', true),
+    /正式 CSV 沒有可上牆組別/,
+  );
 });
 
 await test('CSV 同組多次提交，取最新一筆（陣列後段覆寫前段）', () => {

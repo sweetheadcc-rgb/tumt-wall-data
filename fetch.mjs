@@ -154,11 +154,12 @@ export function dedupeByGroup(rows) {
 
 export function rowsForSource(csvText, published) {
   const parsed = dedupeByGroup(parseCsv(csvText));
+  const rows = published ? dropTestRows(parsed) : parsed;
   // 正式表單突然沒有有效組別，常是發布網址或匯出故障；保留既有頻道牆。
-  if (published && parsed.length === 0) {
-    throw new Error('正式 CSV 沒有有效組別，保留現有頻道牆資料');
+  if (published && rows.length === 0) {
+    throw new Error('正式 CSV 沒有可上牆組別，保留現有頻道牆資料');
   }
-  return published ? dropTestRows(parsed) : parsed;
+  return rows;
 }
 
 // 正式清單(CSV_URL)裡組名以「測試｜」開頭的列是管線自測用,不上牆;本地 fixture 不過濾。
