@@ -209,6 +209,19 @@ export function parseChannelRef(rawUrl) {
   return null;
 }
 
+function sourceKey(ref) {
+  return ref ? `${ref.platform}:${ref.type || 'login'}:${ref.value}` : null;
+}
+
+function samePreviousSource(old, ref, resolvedId) {
+  if (!old || !ref || (old.platform || 'youtube') !== ref.platform) return false;
+  if (resolvedId && old.channelId && resolvedId !== old.channelId) return false;
+  if (old.sourceKey) return old.sourceKey === sourceKey(ref);
+  // 舊版輸出沒有 sourceKey；只能在已知頻道身分相符時沿用。
+  if (ref.platform === 'youtube') return Boolean(old.channelId && old.channelId === (resolvedId || (ref.type === 'id' ? ref.value : null)));
+  return parseChannelRef(old.channelUrl)?.value === ref.value;
+}
+
 export async function resolveChannelId(ref, cache) {
   if (ref.type === 'id') return ref.value;
 
@@ -510,6 +523,7 @@ export async function collectChannels(rows, options = {}) {
 
   const results = await mapLimit(parsed, concurrency, async ({ row, ref }) => {
     const { group, url } = row;
+    let resolvedId = null;
     try {
       if (!ref) throw new Error(`無法解析頻道連結: ${url}`);
 
@@ -518,6 +532,7 @@ export async function collectChannels(rows, options = {}) {
         const login = ref.value;
         const user = twitchCtx.usersByLogin.get(login);
         if (!user) throw new Error('Twitch 帳號不存在或已改名');
+        resolvedId = user.id;
 
         const streamInfo = twitchCtx.streamsByLogin.get(login) || null;
         const videos = await twitchVideos(user.id, { clientId: twitchCtx.clientId, token: twitchCtx.token }).catch(
@@ -534,6 +549,7 @@ export async function collectChannels(rows, options = {}) {
           channel: {
             group,
             platform: 'twitch',
+            sourceKey: sourceKey(ref),
             channelId: user.id,
             channelName: user.displayName,
             channelUrl,
@@ -549,6 +565,7 @@ export async function collectChannels(rows, options = {}) {
       }
 
       const channelId = await resolve(ref, cache);
+      resolvedId = channelId;
       const { channelName, entries } = await rss(channelId);
       const liveInfo = await live(channelId).catch((err) => {
         logger(`${group}: live 偵測失敗(不影響其餘資料): ${err.message}`);
@@ -561,6 +578,7 @@ export async function collectChannels(rows, options = {}) {
         channel: {
           group,
           platform: 'youtube',
+          sourceKey: sourceKey(ref),
           channelId,
           channelName,
           channelUrl: `https://www.youtube.com/channel/${channelId}`,
@@ -572,14 +590,15 @@ export async function collectChannels(rows, options = {}) {
       };
     } catch (err) {
       const old = prevByGroup.get(group);
-      if (old) {
+      if (samePreviousSource(old, ref, resolvedId)) {
         logger(`${group}: 抓取失敗(${err.message}),沿用上一輪資料`);
         // eslint-disable-next-line no-unused-vars
         const { error: _prevError, ...keep } = old;
         return { status: 'stale', channel: { ...keep, stale: true, error: err.message } };
       }
-      logger(`${group}: 抓取失敗(${err.message}),無上一輪資料可沿用,本輪跳過`);
-      return { status: 'skipped', group, error: err.message };
+      const sourceNote = old ? '；新連結與上一輪來源不同或無法核對，未沿用舊資料' : '';
+      logger(`${group}: 抓取失敗(${err.message})${sourceNote},本輪跳過`);
+      return { status: 'skipped', group, error: `${err.message}${sourceNote}` };
     }
   });
 

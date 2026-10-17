@@ -27,7 +27,7 @@ npm run fetch   # 用 channels.csv fixture 實跑一輪(需要能連 youtube.com
   `twitchVideos` 選項),新邏輯請用注入方式在 `test.mjs` 離線測(不要在測試裡打真網路)。
 - Twitch 前置作業(`prepareTwitchContext`:拿 token → 批次查 users → 批次查 streams)一輪只跑一次,
   不是每個 Twitch 頻道各打一輪;缺 `TWITCH_CLIENT_ID`/`TWITCH_CLIENT_SECRET` 時完全不打 Twitch 端點。
-- 每個頻道的失敗語意:有舊資料 → 沿用並標 `stale:true`;沒有 → 進 `skipped[]`;live 失敗不算頻道失敗。
+- 每個頻道的失敗語意:同組且同來源有舊資料 → 沿用並標 `stale:true`;換填新來源或沒有可確認同來源舊資料 → 進 `skipped[]`;live 失敗不算頻道失敗。
 - 清單非空卻一組都沒抓到 → `main()` 以非零結束且**不覆寫**輸出(讓 Action 紅,不讓頻道牆變空)。
 - 解析 YouTube HTML 的 regex 一旦失效,先用 `node fetch.mjs` 在本機重現,再改 `parseStreamsPage` / `resolveChannelId`,
   並在 `test.mjs` 補一段當時抓到的最小 HTML 片段當回歸案例。

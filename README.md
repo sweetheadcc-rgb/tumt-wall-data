@@ -19,6 +19,7 @@
 Twitch 頻道連結也收:`twitch.tv/<帳號>`、`m.twitch.tv/<帳號>/home?...`、帶查詢字串的網址皆可(見下方「Twitch 設定」)。
 同一組多次提交以**最後一筆**為準。
 CSV 引號欄位可包含逗號或換行；引號格式錯誤、或正式發布的 CSV 過濾測試列後沒有可上牆組別時，抓取會報錯並保留現有頻道牆資料。
+同一組改填新頻道後若新來源抓取失敗，不會把上一個頻道錯掛到新提交；該組會列入 `skipped`。相同來源暫時失敗才沿用上一輪資料並標 `stale`。
 
 ## Twitch 設定(開學做一次,選用)
 
@@ -95,6 +96,7 @@ CSV_URL=https://… npm run fetch   # 用真實清單跑
 
 - `channels` 順序 = 表單提交順序(去重後),YouTube 與 Twitch 混在同一個陣列裡,用 `platform` 分辨。
 - 只會**加**欄位,不會改義或刪欄位;`schemaVersion` 改義時才 +1。
+- `sourceKey` 記錄正規化後的來源類型與頻道識別，只用於確認失敗時能否安全沿用同一組的舊資料。
 - `live.startedAt`:YouTube 永遠是 `null`(`/streams` 分頁沒有開播時間;欄位依規格保留);Twitch 是 Helix
   `streams` 回傳的實際開播時間字串。
 - Twitch 的 `latest[].published` 欄位名跟 YouTube 的 `latest[].publishedAt` **不同**(沿用 Twitch Helix API
