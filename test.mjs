@@ -259,6 +259,7 @@ await test('collectChannels:正常路徑 → ok、stale:false、fetchedAt、stat
   assert.equal(channels[0].channelName, '頻道1');
   assert.equal(channels[0].fetchedAt, 'T1');
   assert.equal(channels[0].stale, false);
+  assert.equal(channels[0].sourceKey, `youtube:id:${ID(1)}`);
   assert.equal(channels[0].live, null);
   assert.deepEqual(skipped, []);
   assert.deepEqual(stats, { total: 1, ok: 1, stale: 0, skipped: 0 });
@@ -275,6 +276,49 @@ await test('collectChannels:抓失敗但有上一輪 → 沿用舊資料並標 s
   assert.equal(channels[0].error, 'RSS HTTP 503');
   assert.equal(channels[0].fetchedAt, 'T0');
   assert.deepEqual(stats, { total: 1, ok: 0, stale: 1, skipped: 0 });
+});
+
+await test('collectChannels:同組換 YouTube 頻道而新頻道抓取失敗，不冒用舊頻道', async () => {
+  const prev = { channels: [{ group: 'A隊', platform: 'youtube', channelId: ID(1), channelName: '舊頻道', fetchedAt: 'T0' }] };
+  const rows = [{ group: 'A隊', url: `https://www.youtube.com/channel/${ID(2)}` }];
+  const { channels, skipped, stats } = await collectChannels(rows, {
+    prev, resolve: async (ref) => ref.value, rss: async () => { throw new Error('RSS HTTP 503'); }, logger: silent,
+  });
+  assert.deepEqual(channels, []);
+  assert.equal(skipped[0].group, 'A隊');
+  assert.match(skipped[0].error, /未沿用舊資料/);
+  assert.deepEqual(stats, { total: 1, ok: 0, stale: 0, skipped: 1 });
+});
+
+await test('collectChannels:同組換 Twitch login 且缺憑證，不冒用舊頻道', async () => {
+  const prev = { channels: [{ group: 'T隊', platform: 'twitch', channelId: 'TW1', channelUrl: 'https://www.twitch.tv/oldteam' }] };
+  const { channels, skipped } = await collectChannels([{ group: 'T隊', url: 'https://twitch.tv/newteam' }], {
+    prev, env: {}, logger: silent,
+  });
+  assert.deepEqual(channels, []);
+  assert.equal(skipped[0].group, 'T隊');
+  assert.match(skipped[0].error, /未沿用舊資料/);
+});
+
+await test('collectChannels:相同 handle 解析暫時失敗時，只沿用帶同來源標記的舊資料', async () => {
+  const row = { group: 'B隊', url: 'https://www.youtube.com/@bteam' };
+  const previous = { group: 'B隊', platform: 'youtube', sourceKey: 'youtube:handle:@bteam', channelId: ID(2), channelName: 'B頻道', fetchedAt: 'T0' };
+  const result = await collectChannels([row], {
+    prev: { channels: [previous] }, resolve: async () => { throw new Error('解析逾時'); }, logger: silent,
+  });
+  assert.equal(result.channels[0].channelId, ID(2));
+  assert.equal(result.channels[0].stale, true);
+  assert.equal(result.stats.stale, 1);
+});
+
+await test('collectChannels:相同 handle 解析到不同頻道時，不沿用舊頻道', async () => {
+  const row = { group: 'B隊', url: 'https://www.youtube.com/@bteam' };
+  const previous = { group: 'B隊', platform: 'youtube', sourceKey: 'youtube:handle:@bteam', channelId: ID(2) };
+  const result = await collectChannels([row], {
+    prev: { channels: [previous] }, resolve: async () => ID(3), rss: async () => { throw new Error('RSS HTTP 503'); }, logger: silent,
+  });
+  assert.equal(result.channels.length, 0);
+  assert.equal(result.skipped[0].group, 'B隊');
 });
 
 await test('collectChannels:抓失敗且無上一輪 → 不進 channels、列在 skipped', async () => {
